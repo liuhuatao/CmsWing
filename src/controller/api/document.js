@@ -11,6 +11,7 @@ module.exports = class extends think.cmswing.rest {
 
   async getAction() {
     let data;
+    this.setCorsHeader();
     const document = this.model('cmswing/document');
     const category = this.model('cmswing/category');
     if (this.id) {
@@ -75,4 +76,11 @@ module.exports = class extends think.cmswing.rest {
     }
     return this.success(data);
   }
+    // 跨域设置
+    setCorsHeader() {
+        this.header('Access-Control-Allow-Origin', this.header('origin') || '*');
+        this.header('Access-Control-Allow-Headers', 'x-requested-with');
+        this.header('Access-Control-Request-Method', 'GET,POST,PUT,DELETE');
+        this.header('Access-Control-Allow-Credentials', 'true');
+    }
 };
