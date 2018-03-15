@@ -10,6 +10,7 @@ module.exports = class extends think.cmswing.rest {
    */
 
   async getAction() {
+    console.log('-------document------')
     let data;
     this.setCorsHeader();
     const document = this.model('cmswing/document');
@@ -43,7 +44,7 @@ module.exports = class extends think.cmswing.rest {
     } else {
       o.update_time = 'DESC';
     }
-    data = await document.where(map).page(this.get('page')).order(o).countSelect();
+    data = await document.where(map).page(this.get('page'), this.get('pageSize')).order(o).countSelect();
     const http_ = this.config('http_') == 1 ? 'http' : 'https';
     let http__;
     for (const v of data.data) {
@@ -76,11 +77,12 @@ module.exports = class extends think.cmswing.rest {
     }
     return this.success(data);
   }
-    // 跨域设置
-    setCorsHeader() {
-        this.header('Access-Control-Allow-Origin', this.header('origin') || '*');
-        this.header('Access-Control-Allow-Headers', 'x-requested-with');
-        this.header('Access-Control-Request-Method', 'GET,POST,PUT,DELETE');
-        this.header('Access-Control-Allow-Credentials', 'true');
-    }
+
+  // 跨域设置
+  setCorsHeader() {
+    this.header('Access-Control-Allow-Origin', this.header('origin') || '*');
+    this.header('Access-Control-Allow-Headers', 'x-requested-with');
+    this.header('Access-Control-Request-Method', 'GET,POST,PUT,DELETE');
+    this.header('Access-Control-Allow-Credentials', 'true');
+  }
 };
