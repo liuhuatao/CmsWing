@@ -53,7 +53,10 @@ module.exports = class extends think.cmswing.rest {
         const pic = await get_pic(v.cover_id, 1, 360, 240);
         if (pic.indexOf('//') == 0) {
           http__ = `${http_}:`;
-        } else {
+        } else if (pic.indexOf('//') > 0) {
+          http__ = '';
+        }
+        else {
           http__ = `${http_}://${this.ctx.host}`;
         }
         imgarr.push(http__ + pic);
@@ -64,6 +67,8 @@ module.exports = class extends think.cmswing.rest {
           const pic = await get_pic(i, 1, 360, 240);
           if (pic.indexOf('//') == 0) {
             http__ = `${http_}:`;
+          } else if (pic.indexOf('//') > 0) {
+            http__ = '';
           } else {
             http__ = `${http_}://${this.ctx.host}`;
           }
