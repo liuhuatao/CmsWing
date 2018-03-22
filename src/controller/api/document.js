@@ -50,7 +50,8 @@ module.exports = class extends think.cmswing.rest {
     for (const v of data.data) {
       const imgarr = [];
       if (v.cover_id != 0) {
-        const pic = await get_pic(v.cover_id, 1, 360, 240);
+        // const pic = await get_pic(v.cover_id, 1, 360, 240);
+        const pic = await get_pic(v.cover_id, 1);
         if (pic.indexOf('//') == 0) {
           http__ = `${http_}:`;
         } else if (pic.indexOf('//') > 0) {
@@ -64,7 +65,8 @@ module.exports = class extends think.cmswing.rest {
       if (!think.isEmpty(v.pics)) {
         const pics = v.pics.split(',');
         for (const i of pics) {
-          const pic = await get_pic(i, 1, 360, 240);
+          // const pic = await get_pic(i, 1, 360, 240);
+          const pic = await get_pic(i, 1);
           if (pic.indexOf('//') == 0) {
             http__ = `${http_}:`;
           } else if (pic.indexOf('//') > 0) {
