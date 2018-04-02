@@ -29,7 +29,7 @@ module.exports = class extends think.cmswing.rest {
     const cid = this.get('cid') || 0;
     const update_time = this.get('update_time') || 0;
     const order = this.get('order');
-    o.sort_id = 'DESC';
+    o.sort = 'ASC';
     if (cid != 0 && think.isNumberString(cid)) {
       // 获取当前分类的所有子栏目
       const subcate = await category.get_sub_category(cid);
