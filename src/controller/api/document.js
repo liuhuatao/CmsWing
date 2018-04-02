@@ -27,7 +27,9 @@ module.exports = class extends think.cmswing.rest {
     const map = {'pid': 0, 'status': 1};
     const o = {};
     const cid = this.get('cid') || 0;
+    const update_time = this.get('update_time') || 0;
     const order = this.get('order');
+    o.sort_id = 'DESC';
     if (cid != 0 && think.isNumberString(cid)) {
       // 获取当前分类的所有子栏目
       const subcate = await category.get_sub_category(cid);
@@ -37,12 +39,20 @@ module.exports = class extends think.cmswing.rest {
     } else if (cid == 'hot') {
       o.view = 'DESC';
     } else {
-      o.update_time = 'DESC';
+      if (update_time) {
+        o.update_time = update_time;
+      } else {
+        o.update_time = 'DESC';
+      }
     }
     if (order == 'hot') {
       o.view = 'DESC';
     } else {
-      o.update_time = 'DESC';
+      if (update_time) {
+        o.update_time = update_time;
+      } else {
+        o.update_time = 'DESC';
+      }
     }
     data = await document.where(map).page(this.get('page'), this.get('pageSize')).order(o).countSelect();
     const http_ = this.config('http_') == 1 ? 'http' : 'https';
